@@ -2,6 +2,7 @@
 Projet GIF 1301 2023-2024
 Octobre 2023
 Organisateur de conférences
+
 Vous voici dans la peau d’un organisateur de conférences.
 Pour chaque conférence que vous organisez, vous mémorisez sa date de réalisation, son titre et le
 nom de l’intervenant. Ensuite vous disposez d’une liste d’abonnés qui viennent potentiellement
