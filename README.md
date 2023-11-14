@@ -1,4 +1,4 @@
-# Projet-GIF
+# Projet-Conference au Max
 Projet GIF 1301 2023-2024
 Octobre 2023
 Organisateur de conférences
