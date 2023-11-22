@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Définition des structures pour les conférences et les abonnés
+// DÃ©finition des structures pour les confÃ©rences et les abonnÃ©s
 typedef struct Conference {
     char titre[100];
     char intervenant[100];
@@ -18,7 +18,7 @@ typedef struct Abonne {
     struct Abonne *precedent;
 } Abonne;
 
-// Définition des fonctions pour les conférences
+// DÃ©finition des fonctions pour les confÃ©rences
 void ajouter_conference(Conference **liste, char *titre, char *intervenant, int date) {
     Conference *nouveau = (Conference *)malloc(sizeof(Conference));
     strcpy(nouveau->titre, titre);
@@ -42,7 +42,7 @@ void supprimer_conferences_avant(Conference **liste, int date) {
     }
 }
 
-// Définition des fonctions pour les abonnés
+// DÃ©finition des fonctions pour les abonnÃ©s
 void ajouter_abonne(Abonne **liste, char *nom, int age, int niveau_etude) {
     Abonne *nouveau = (Abonne *)malloc(sizeof(Abonne));
     strcpy(nouveau->nom, nom);
@@ -70,13 +70,13 @@ void supprimer_abonne(Abonne **liste, char *nom) {
         if (parcours->suivant != NULL) {
             parcours->suivant->precedent = parcours->precedent;
         }
-        free(parcours);
+        free(parcours); (Ã  Ã©viter free)
     }
 }
 
 int main() {
-    // Code principal pour gérer les conférences et les abonnés
+    // Code principal pour gÃ©rer les confÃ©rences et les abonnÃ©s
     return 0;
 }
 
-///////Ce code permet de gérer les conférences et les abonnés. Vous pouvez adapter ce code pour répondre aux autres besoins tels que la sauvegarde et le chargement des données, la recherche de la conférence la mieux notée ou de lister tous les participants à une conférence, etc.
+///////Ce code permet de gÃ©rer les confÃ©rences et les abonnÃ©s. Vous pouvez adapter ce code pour rÃ©pondre aux autres besoins tels que la sauvegarde et le chargement des donnÃ©es, la recherche de la confÃ©rence la mieux notÃ©e ou de lister tous les participants Ã  une confÃ©rence, etc.
