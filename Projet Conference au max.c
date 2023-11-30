@@ -3,6 +3,12 @@
 #include <string.h>
 
 // Définition des structures pour les conférences et les abonnés
+typedef struct Feedback {
+    struct Conference *conference;
+    int note;
+    struct Feedback *suivant;
+} Feedback;
+
 typedef struct Conference {
     char titre[100];
     char intervenant[100];
@@ -16,6 +22,7 @@ typedef struct Abonne {
     int niveau_etude;
     struct Abonne *suivant;
     struct Abonne *precedent;
+    struct Feedback *feedback; // Liste des feedbacks pour cet abonné
 } Abonne;
 
 // Définition des fonctions pour les conférences
