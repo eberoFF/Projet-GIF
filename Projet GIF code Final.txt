@@ -1,0 +1,315 @@
+#include <stdio.h>                  // Inclut l'en-tête standard pour les entrées/sorties
+#include <stdlib.h>                 // Inclut les fonction standard comme malloc/free pour l'allocation dynamique
+#include <string.h>                 // Inclut les fonctions pour manipuler les chaînes de caractères
+#include <windows.h>
+#include <conio.h>
+#include <time.h>
+
+// Définitions des structures
+typedef struct Feedback {
+    struct Conference *conference;  // Pointeur vers la structure Conference associée à ce feedback
+    int note;                       // Note donnée par l'abonné pour cette conférence
+    struct Feedback *suivant;       // Pointeur vers le prochain élément pour implémenter une liste chaînée
+} Feedback;
+
+typedef struct Conference {
+    char titre[100];                // Titre de la conférence stocké dans un tableau de 100 caractères
+    char intervenant[100];          // Nom de l'intervenant stocké dans un tableau de 100 caractères
+    int date;                       // Date de la conférence sous la forme AAAAMMJJ
+    struct Conference *suivant;     // Pointeur vers la conférence suivante dans la liste  
+} Conference;
+
+typedef struct Abonne {
+    char nom[100];                  // Nom de l'abonné stocké dans un tableau de 100 caractères                  
+    int age;                        // Âge de l'abonné
+    int niveau_etude;               // Niveau d'études de l'abonné
+    struct Abonne *suivant;         // Pointeur vers l'abonné suivant dans la liste
+    struct Abonne *precedent;       // Pointeur vers l'abonné précédent dans la liste 
+    struct Feedback *feedback;      // Pointeur vers la liste chaînée des feedbacks de cet abonné
+} Abonne;
+
+
+// Fonctions pour les conférences
+void ajouter_conference(Conference **liste, char *titre, char *intervenant, int date) {
+                                    // Alloue dynamiquement une nouvelle structure Conference
+                                    // Remplit les champs titre, intervenant et date
+                                    // Fait pointer le champ suivant sur l'ancienne tête de liste
+                                    // Modifie le pointeur liste pour pointer sur la nouvelle conférence
+                                    // La nouvelle conférence est insérée en tête de liste
+}
+
+
+// Code pour supprimer les conférences antérieures à une date
+void supprimer_conferences(Conference **liste, int date) {
+    Conference *actuel = *liste;
+    Conference *precedent = NULL;
+    
+    while (actuel != NULL) {        // Parcours la liste
+       if (actuel->date < date) { 
+                                    // Si Conf à supprimer
+           
+                                    // Fait pointer le précédent sur le suivant  
+           if (precedent)  
+               precedent->suivant = actuel->suivant;
+           else                     // 1er élément
+               *liste = actuel->suivant;
+               
+                                    // Libère la mémoire de la conf supprimée 
+       }
+       else {
+           precedent = actuel;      // Avance les pointeurs
+           actuel = actuel->suivant;  
+       }
+    }
+}    
+
+
+
+
+// Fonctions pour les abonnés
+void ajouter_abonne(Abonne **liste, char *nom, int age, int niveau_etude) {
+                                    // Code pour ajouter un abonné
+                                    // Alloue de la mémoire pour stocker les infos de la conférence
+                                    // Remplit les champs titre, intervenant, date
+                                    // Chaîne la nouvelle conférence au début de la liste en mettant à jour le pointeur passé en paramètre  
+                                    // Alloue et remplit une nouvelle structure Abonne
+                                    // Insère en tête de liste en modifiant les pointeurs
+}   
+
+
+// Code pour supprimer un abonné
+void supprimer_abonne(Abonne **liste, char *nom) {
+    
+                                    // Parcours la liste jusqu'à trouver l'abonné à supprimer
+                                    // Modifie les pointeurs précédent et suivant pour retirer l'élément
+                                    // Libère la mémoire 
+}
+    
+
+
+    
+
+
+void ajouter_participation(Abonne *abonne, Conference *conf, int note) {
+                                    // Alloue dynamiquement une nouvelle structure Feedback
+                                    // Remplit les champs conference, note
+                                    // Insère ce feedback au début de la liste chaînée d'abonne
+                                    // Modifie le pointeur feedback de l'abonné pour pointer sur ce nouveau feedback
+}
+
+
+void sauvegarder_donnees(char *fichier, Abonne *liste_abonnes, Conference *liste_conferences) {
+                                    // Ouvre le fichier en écriture
+                                    // Parcours les listes et écrit les données au format voulu
+                                    // Puis ferme le fichier
+}
+
+
+void charger_donnees(char *fichier, Abonne **liste_abonnes, Conference **liste_conferences) {
+                                    // Ouvre le fichier en lecture
+                                    // Lit les données
+                                    // Pour chaque conférence lue
+                                    // Cela alloue et remplit une structure Conference
+                                    // puis insère en tête de la liste des conférences
+                                    // Pareil pour les abonnés
+                                    // Ferme le fichier
+                                    // Les listes sont reconstituées à partir des données du fichier
+}
+
+
+// Interface graphique intitulé "Menu Principal"
+void menuPrincipal() {
+
+  int choix;
+  
+  do {
+    system("cls");                  // Efface l'écran
+    
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10); 
+    printf("GESTION DES CONFERENCES ET ABONNES\n\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    
+    printf("1. Gérer les conférences\n");
+    printf("2. Gérer les abonnés\n");
+    printf("3. Consulter les participations\n");
+    printf("4. Sauvegarder les données\n");
+    printf("5. Quitter\n\n");
+    
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+    
+    switch(choix) {
+      case 1: 
+        gererConferences();
+        break;
+        
+      case 2:
+        gererAbonnes();
+        break;
+        
+      case 3: 
+        consulterParticipations();
+        break;
+        
+      case 4:
+        sauvegarder_donnees("donnees.txt", liste_abonnes, liste_conferences); 
+        break;
+    }
+    
+  } while(choix != 5);
+  
+}
+void gererConferences(Conference **liste) {
+    int choix;
+    do {
+        printf("1. Ajouter une conférence\n");
+        printf("2. Supprimer une conférence\n");
+        printf("3. Rechercher une conférence\n");
+        printf("4. Retour\n");
+        printf("Choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1: {
+                // Code pour ajouter une conférence
+                break;
+            }
+            case 2: {
+                // Code pour supprimer une conférence
+                break;
+            }
+            case 3: {
+                // Code pour rechercher une conférence
+                break;
+            }
+            case 4: {
+                // Code pour retourner au menu principal
+                break;
+            }
+            default: {
+                printf("Choix incorrect. Veuillez réessayer.\n");
+            }
+        }
+    } while (choix != 4);
+}
+
+
+void gererAbonnes(Abonne **liste) {
+    int choix;
+    do {
+        printf("1. Ajouter un abonné\n");
+        printf("2. Supprimer un abonné\n");
+        printf("3. Rechercher un abonné\n");
+        printf("4. Retour\n");
+        printf("Choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1: {
+                // Code pour ajouter un abonné
+                break;
+            }
+            case 2: {
+                // Code pour supprimer un abonné
+                break;
+            }
+            case 3: {
+                // Code pour rechercher un abonné
+                break;
+            }
+            case 4: {
+                // Code pour retourner au menu principal
+                break;
+            }
+            default: {
+                printf("Choix incorrect. Veuillez réessayer.\n");
+            }
+        }
+    } while (choix != 4);
+}
+
+void consulterParticipations(Abonne *liste) {
+    // Code pour afficher les participations des abonnés
+
+  system("cls");
+  
+                                    // Affichage des participations
+  
+}
+
+
+
+// Déclarations globales
+Abonne *liste_abonnes = NULL; 
+Conference *liste_conferences = NULL;
+void chargerAbonnesEtFeedbacks(Abonne **liste, const char *fichier);
+void chargerConferences(Conference **liste, const char *fichier); 
+
+// Prototypes des fonctions 
+void gererConferences();
+void gererAbonnes();
+void consulterParticipations();
+
+void chargerAbonnesEtFeedbacks(Abonne **liste, const char *fichier) {
+
+ FILE *f = fopen(fichier, "r");
+
+ if (f == NULL) {
+    printf("Erreur lors de l'ouverture du fichier.\n");
+    return;
+ }
+
+ Abonne *temp;
+ char ligne[256];
+
+ while (fgets(ligne, sizeof(ligne), f)) {
+    temp = malloc(sizeof(Abonne));
+
+    sscanf(ligne, "%d %s %s", &temp->id, temp->nom, temp->prenom);
+
+    temp->feedbacks = NULL;
+
+    temp->next = *liste;
+    *liste = temp;
+ }
+
+ fclose(f);
+}
+
+void chargerConferences(Conference **liste, const char *fichier) {
+
+ FILE *f = fopen(fichier, "r");
+
+ if (f == NULL) {
+    printf("Erreur lors de l'ouverture du fichier.\n");
+    return;
+ }
+
+ Conference *temp;
+ char ligne[256];
+
+ while (fgets(ligne, sizeof(ligne), f)) {
+    temp = malloc(sizeof(Conference));
+
+    sscanf(ligne, "%d %s %s %d", &temp->id, temp->titre, temp->presentateur, &temp->date);
+
+    temp->abonnes = NULL;
+
+    temp->next = *liste;
+    *liste = temp;
+ }
+
+ fclose(f);
+}
+
+int main() {
+
+  // Supprime code Windows   
+  menuPrincipal();
+    
+  // Appelle fonctions déclarées    
+  chargerAbonnesEtFeedbacks(&liste_abonnes, "abonnes.txt");
+  chargerConferences(&liste_conferences, "conferences.txt");
+
+  return 0;
+}

@@ -1,0 +1,41 @@
+Pour tester l'insertion de listes d'abonnés depuis des fichiers texte, j'ai fait quelques modifications :
+
+1. J'ai ajouté les prototypes des fonctions de chargement :
+
+```
+// Prototypes
+void charger_conferences(Conference **liste_conferences, char *fichier); 
+void charger_abonnes(Abonne **liste_abonnes, char *fichier);
+```
+
+2. J'ai appelé ces fonctions au début du main() :
+
+```
+int main() {
+    Conference *liste_conferences = NULL; 
+    Abonne *liste_abonnes = NULL;
+
+    charger_conferences(&liste_conferences, "conferences.txt");
+    charger_abonnes(&liste_abonnes, "abonnes.txt");
+
+    menuPrincipal();
+    
+    // Reste du main
+}
+```
+
+3. J'ai implémenté les fonctions de chargement qui parcourent les fichiers et insèrent les éléments dans les listes :
+
+```
+void charger_conferences(Conference **liste, char *fichier) {
+   // Ouvre le fichier
+   // Lit les conférences une à une avec fscanf()
+   // Pour chacune, alloue une structure Conference
+   // Remplit les champs
+   // Insère en tête de liste avec votre fonction ajouter_conference()
+}
+
+void charger_abonnes(Abonne **liste, char *fichier) {
+   // Même chose pour les abonnés 
+}
+```
